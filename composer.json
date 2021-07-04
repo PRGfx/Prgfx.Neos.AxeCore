@@ -3,6 +3,7 @@
     "description": "Integrates axe-core accessibility tests into the Neos backend UI",
     "keywords": ["neoscms", "neos", "accessibility", "axe", "axe-core", "dequeue"],
     "type": "neos-package",
+    "license": "GPL-3.0-or-later",
     "require": {
         "ext-json": "*",
         "neos/neos": "^5.0 || ^7.0 || dev-master",
