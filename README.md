@@ -1,3 +1,5 @@
+[![Version](https://poser.pugx.org/prgfx/neos-axecore/version)](//packagist.org/packages/prgfx/neos-axecore)
+
 # Prgfx.Neos.AxeCore
 
 This package integrates the [axe-core](https://github.com/dequelabs/axe-core) accessibility analysis tools from [Deque](https://www.deque.com/) into the Neos inspector to allow editors to quickly determine accessibility issues on a document.
