@@ -1,0 +1,28 @@
+prototype(Prgfx.Neos.AxeCore:ElementHighlighter) < prototype(Neos.Fusion:Tag) {
+    tagName = 'div'
+    attributes {
+        style = 'display:none;pointer-events:none;position:absolute;border:4px solid rgb(193, 27, 222);outline:20px solid rgba(193, 27, 222, 0.4);z-index:10000;'
+        id = 'prgfx-neos-axecore-elementhighlighter'
+    }
+}
+
+prototype(Prgfx.Neos.AxeCore:AnalyzerScripts) < prototype(Neos.Fusion:Join) {
+    library = Neos.Fusion:Tag {
+        tagName = 'script'
+        attributes {
+            src = Neos.Fusion:ResourceUri {
+                path = ${Configuration.setting('Prgfx.Neos.AxeCore.script')}
+            }
+        }
+        @if.inAnalyzerview = ${documentNode.context.inBackend && documentNode.context.currentRenderingMode.name == 'axeAnalyzerView'}
+    }
+    elementHighlighter = Prgfx.Neos.AxeCore:ElementHighlighter {
+        @if.inBackend = ${documentNode.context.inBackend}
+    }
+}
+
+prototype(Neos.Neos:Page) {
+    axeAnalyzerScripts = Prgfx.Neos.AxeCore:AnalyzerScripts {
+        @position = 'before closingBodyTag'
+    }
+}

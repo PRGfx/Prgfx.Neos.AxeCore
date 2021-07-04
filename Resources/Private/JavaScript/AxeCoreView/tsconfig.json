@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "lib": ["ES2020", "dom"],
+        "target": "ES6",
+        "skipLibCheck": true,
+        "moduleResolution": "Node",
+        "jsx": "react",
+        "typeRoots": ["./typings"],
+        "esModuleInterop": true
+    },
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

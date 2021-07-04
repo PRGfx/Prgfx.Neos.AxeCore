@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Prgfx.Neos.AxeCore" source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="view.analyze">
+                <source>Scan for errors</source>
+            </trans-unit>
+            <trans-unit id="view.analyzeAgain">
+                <source>Rescan</source>
+            </trans-unit>
+            <trans-unit id="view.analyzing">
+                <source>analyzing…</source>
+            </trans-unit>
+            <trans-unit id="results.category.passes">
+                <source>Passed ({0})</source>
+            </trans-unit>
+            <trans-unit id="results.category.incomplete">
+                <source>Incomplete ({0})</source>
+            </trans-unit>
+            <trans-unit id="results.category.inapplicable">
+                <source>Inapplicable ({0})</source>
+            </trans-unit>
+            <trans-unit id="results.category.violations">
+                <source>Violations ({0})</source>
+            </trans-unit>
+            <trans-unit id="result.ruleLink">
+                <source>axe rule: {0}</source>
+            </trans-unit>
+            <trans-unit id="occurrence.affectedElement">
+                <source>Affected Element</source>
+            </trans-unit>
+            <trans-unit id="nodeInfo.domSelector">
+                <source>DOM Selector</source>
+            </trans-unit>
+            <trans-unit id="nodeInfo.highlightNode">
+                <source>Highlight Element</source>
+            </trans-unit>
+            <trans-unit id="nodeInfo.html">
+                <source>HTML Source</source>
+            </trans-unit>
+            <trans-unit id="nodeInfo.renderingPrototype">
+                <source>Rendered Element</source>
+            </trans-unit>
+            <trans-unit id="nodeInfo.neosNode">
+                <source>Content Element</source>
+            </trans-unit>
+            <trans-unit id="nodeInfo.selectNode">
+                <source>Select Element</source>
+            </trans-unit>
+            <trans-unit id="popout.popout">
+                <source>Pop-out results</source>
+            </trans-unit>
+            <trans-unit id="popout.popin">
+                <source>Show in inspector</source>
+            </trans-unit>
+            <trans-unit id="popout.poppedOut">
+                <source>View is opened in a separate window</source>
+            </trans-unit>
+            <trans-unit id="popout.title">
+                <source>axe-core results: {0}</source>
+            </trans-unit>
+            <trans-unit id="export.export">
+                <source>Export results</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

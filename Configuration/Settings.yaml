@@ -1,0 +1,40 @@
+Neos:
+  Neos:
+    Ui:
+      resources:
+        javascript:
+          Prgfx.Neos.AxeCore:AxeCoreView:
+            resource: 'resource://Prgfx.Neos.AxeCore/Public/JavaScript/AxeCoreView/Plugin.js'
+        stylesheets:
+          Prgfx.Neos.AxeCore:AxeCoreView:
+            resource: 'resource://Prgfx.Neos.AxeCore/Public/JavaScript/AxeCoreView/Plugin.css'
+      configurationDefaultEelContext:
+        Prgfx.Neos.AxeCore.Translation: Prgfx\Neos\AxeCore\Helper\TranslationHelper
+      frontendConfiguration:
+        'Prgfx.Neos.AxeCore:runOptions': []
+        'Prgfx.Neos.AxeCore:axeCoreTranslations': "${Prgfx.Neos.AxeCore.Translation.loadTranslation()}"
+        'Prgfx.Neos.AxeCore:features':
+          popout: true
+          export: true
+    userInterface:
+      editPreviewModes:
+        axeAnalyzerView:
+          isEditingMode: false
+          isPreviewMode: false
+          fusionRenderingPath: ''
+          title: 'axe-core Analyzer'
+          position: end
+      translation:
+        autoInclude:
+          'Prgfx.Neos.AxeCore':
+            - 'AxeCoreView'
+            - 'NodeTypes/*'
+    fusion:
+      autoInclude:
+        'Prgfx.Neos.AxeCore': true
+
+Prgfx:
+  Neos:
+    AxeCore:
+      script: 'resource://Prgfx.Neos.AxeCore/Public/JavaScript/vendor/axe.min.js'
+      translations: 'resource://Prgfx.Neos.AxeCore/Private/JavaScript/AxeCoreView/src/locales/{language}.json'

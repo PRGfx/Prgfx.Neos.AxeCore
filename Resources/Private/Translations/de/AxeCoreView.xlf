@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Prgfx.Neos.AxeCore" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="view.analyze">
+                <source>Scan for errors</source>
+                <target>Nach Fehlern scannen</target>
+            </trans-unit>
+            <trans-unit id="view.analyzeAgain">
+                <source>Rescan</source>
+                <target>Erneut scannen</target>
+            </trans-unit>
+            <trans-unit id="view.analyzing">
+                <source>analyzing…</source>
+                <target>analysieren…</target>
+            </trans-unit>
+            <trans-unit id="results.category.passes">
+                <source>Passed ({0})</source>
+                <target>Bestanden ({0})</target>
+            </trans-unit>
+            <trans-unit id="results.category.incomplete">
+                <source>Incomplete ({0})</source>
+                <target>Unvollständig ({0})</target>
+            </trans-unit>
+            <trans-unit id="results.category.inapplicable">
+                <source>Inapplicable ({0})</source>
+                <target>Nicht anwendbar ({0})</target>
+            </trans-unit>
+            <trans-unit id="results.category.violations">
+                <source>Violations ({0})</source>
+                <target>Verstöße ({0})</target>
+            </trans-unit>
+            <trans-unit id="result.ruleLink">
+                <source>axe rule: {0}</source>
+                <target>axe Regel: {0}</target>
+            </trans-unit>
+            <trans-unit id="occurrence.affectedElement">
+                <source>Affected Element</source>
+                <target>Betroffenes Element</target>
+            </trans-unit>
+            <trans-unit id="nodeInfo.domSelector">
+                <source>DOM Selector</source>
+                <target>DOM Selektor</target>
+            </trans-unit>
+            <trans-unit id="nodeInfo.highlightNode">
+                <source>Highlight Element</source>
+                <target>Element hervorheben</target>
+            </trans-unit>
+            <trans-unit id="nodeInfo.html">
+                <source>HTML Source</source>
+                <target>HTML Quellcode</target>
+            </trans-unit>
+            <trans-unit id="nodeInfo.renderingPrototype">
+                <source>Rendered Element</source>
+                <target>Dargestelltes Element</target>
+            </trans-unit>
+            <trans-unit id="nodeInfo.neosNode">
+                <source>Content Element</source>
+                <target>Inhaltselement</target>
+            </trans-unit>
+            <trans-unit id="nodeInfo.selectNode">
+                <source>Select Element</source>
+                <target>Element auswählen</target>
+            </trans-unit>
+            <trans-unit id="popout.popout">
+                <source>Pop-out results</source>
+                <target>Ergebnisse herauslösen</target>
+            </trans-unit>
+            <trans-unit id="popout.popin">
+                <source>Show in inspector</source>
+                <target>In Inspector anzeigen</target>
+            </trans-unit>
+            <trans-unit id="popout.poppedOut">
+                <source>View is opened in a separate window</source>
+                <target>Ansicht ist in einem separaten Fenster geöffnet</target>
+            </trans-unit>
+            <trans-unit id="popout.title">
+                <source>axe-core results: {0}</source>
+                <target>axe-core Ergebnisse: {0}</target>
+            </trans-unit>
+            <trans-unit id="export.export">
+                <source>Export results</source>
+                <target>Ergebnisse exportieren</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

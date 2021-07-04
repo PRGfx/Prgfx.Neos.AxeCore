@@ -1,0 +1,21 @@
+{
+    "name": "prgfx/neos-axecore",
+    "description": "Integrates axe-core accessibility tests into the Neos backend UI",
+    "keywords": ["neoscms", "neos", "accessibility", "axe", "axe-core", "dequeue"],
+    "type": "neos-package",
+    "require": {
+        "ext-json": "*",
+        "neos/neos": "^5.0 || ^7.0 || dev-master",
+        "neos/neos-ui": "^5.0 || ^7.0 || dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Prgfx\\Neos\\AxeCore\\": "Classes"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Prgfx.Neos.AxeCore"
+        }
+    }
+}

@@ -1,0 +1,85 @@
+.resultSection {
+    margin: var(--spacing-Half) calc(var(--spacing-Full) * -1) 0;
+}
+
+.propertyGroupLabel {
+    width: 100%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: 0 var(--spacing-GoldenUnit) 0 var(--spacing-Full);
+}
+
+.spacer {
+    margin-top: var(--spacing-Half);
+}
+
+.iconWrapper {
+    width: 2em;
+    display: inline-block;
+    text-align: center;
+    margin-left: -5px;
+}
+
+.resultStatus {
+    margin-right: var(--spacing-Quarter);
+    &--minor {
+        color: var(--colors-WarnHover);
+    }
+    &--moderate {
+        color: var(--colors-Warn);
+    }
+    &--serious {
+        color: var(--colors-Error);
+    }
+    &--critical {
+        color: #b30b0b;
+    }
+}
+
+.resultItem {
+    margin-top: var(--spacing-Half);
+}
+.resultTitle {
+    font-weight: 700;
+}
+.resultDescription {
+    font-weight: var(--fontsCopy-CssWeight);
+    color: var(--colors-ContrastBrighter);
+    margin-top: var(--spacing-Half);
+}
+.resultLink {
+    color: var(--colors-PrimaryBlue);
+    text-decoration: underline;
+    &:hover,
+    &:focus {
+        color: var(--colors-PrimaryBlueHover);
+    }
+    svg {
+        color: inherit;
+        margin-left: 4px;
+    }
+}
+
+.occurrenceItem {
+    margin-top: var(--spacing-Half);
+}
+ul.occurrenceErrorList {
+    padding-left: var(--spacing-Full);
+    list-style-type: disc;
+}
+li.occurrenceErrorItem {
+    display: list-item;
+}
+
+.popout {
+    background: var(--colors-ContrastDarker);
+    height: 100%;
+    padding: var(--spacing-Full);
+    overflow: auto;
+}
+
+:global {
+    .style__icon--color-success {
+        color: var(--colors-Success);
+    }
+}

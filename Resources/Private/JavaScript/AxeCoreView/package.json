@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "scripts": {
+        "lint": "eslint src/",
+        "export-axejs": "mkdir -p ../../../Public/JavaScript/vendor && cp node_modules/axe-core/axe.min.js ../../../Public/JavaScript/vendor",
+        "export-translations": "mkdir -p ./src/locales && cp node_modules/axe-core/locales/* ./src/locales/",
+        "build": "neos-react-scripts build",
+        "watch": "neos-react-scripts watch"
+    },
+    "devDependencies": {
+        "@neos-project/neos-ui-extensibility": "*",
+        "@types/react": "^17.0.6",
+        "@types/react-redux": "^7.1.16",
+        "@typescript-eslint/eslint-plugin": "^4.24.0",
+        "@typescript-eslint/parser": "^4.24.0",
+        "eslint": "^7.27.0",
+        "eslint-plugin-react": "^7.23.2"
+    },
+    "neos": {
+        "buildTargetDirectory": "../../../Public/JavaScript/AxeCoreView"
+    },
+    "peerDependencies": {
+        "@neos-project/react-ui-components": "^7.1.1",
+        "classnames": "^2.3.1",
+        "react": "^17.0.2",
+        "react-redux": "^7.2.4"
+    },
+    "dependencies": {
+        "@neos-project/react-ui-components": "^7.1.1",
+        "axe-core": "^4.2.1",
+        "classnames": "^2.3.1",
+        "lodash.debounce": "^4.0.8",
+        "react-popout": "^2.0.1",
+        "redux-saga": "^1.1.3"
+    }
+}

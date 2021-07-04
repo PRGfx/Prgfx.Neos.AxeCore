@@ -1,0 +1,19 @@
+'Prgfx.Neos.AxeCore:Mixin.AxeCoreResults':
+  abstract: true
+  ui:
+    inspector:
+      tabs:
+        accessibility:
+          icon: universal-access
+          label: i18n
+          position: before meta
+      groups:
+        axeCore:
+          tab: accessibility
+          label: axe-core
+          icon: check-double
+      views:
+        axeCore:
+          group: axeCore
+          label: i18n
+          view: 'Prgfx.Neos.AxeCore/Inspector/Views/AxeCoreView'
