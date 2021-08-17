@@ -1885,27 +1885,29 @@ const Occurrence = props => {
         : '';
     let summaryTitle;
     let summaryTextItems;
-    if (props.node.failureSummary.includes('\n')) {
-        const lines = props.node.failureSummary.split('\n');
-        summaryTitle = lines[0];
-        summaryTextItems = lines.slice(1).map(l => l.trim());
-    }
-    else {
-        // sometimes the text is not separated by newlines, so we try breaking
-        // on punctuation marks. however some languages my not use these..
-        summaryTitle = props.node.failureSummary.split(':')[0] + ':';
-        const summaryText = props.node.failureSummary.substr(summaryTitle.length);
-        summaryTextItems = summaryText
-            .split(/\.\s+/)
-            .map((l, i, a) => a.length - 1 > i ? l + '.' : l);
+    if (props.node.failureSummary) {
+        if (props.node.failureSummary.includes('\n')) {
+            const lines = props.node.failureSummary.split('\n');
+            summaryTitle = lines[0];
+            summaryTextItems = lines.slice(1).map(l => l.trim());
+        }
+        else {
+            // sometimes the text is not separated by newlines, so we try breaking
+            // on punctuation marks. however some languages my not use these..
+            summaryTitle = props.node.failureSummary.split(':')[0] + ':';
+            const summaryText = props.node.failureSummary.substr(summaryTitle.length);
+            summaryTextItems = summaryText
+                .split(/\.\s+/)
+                .map((l, i, a) => a.length - 1 > i ? l + '.' : l);
+        }
     }
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceItem },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null,
             props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:occurrence.affectedElement', 'Affected Element'),
             counter),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.resultDescription },
+        props.node.failureSummary && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.resultDescription },
             summaryTitle,
-            summaryTextItems.length >= 1 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorList }, summaryTextItems.map((l, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorItem, key: i }, l)))))),
+            summaryTextItems.length >= 1 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorList }, summaryTextItems.map((l, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorItem, key: i }, l))))))),
         props.node.target && props.node.target.length > 0 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, props.node.target.map((selector, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_node_info__WEBPACK_IMPORTED_MODULE_2__["NodeInfo"], { key: i, selector: selector, html: props.node.html, contentElement: props.node.contentElement[i], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry })))))));
 };
 

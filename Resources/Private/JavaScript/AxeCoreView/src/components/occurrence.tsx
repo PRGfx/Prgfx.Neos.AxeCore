@@ -20,32 +20,36 @@ export const Occurrence: React.FunctionComponent<IOccurrenceProps> = props => {
         : '';
     let summaryTitle: string;
     let summaryTextItems: string[];
-    if (props.node.failureSummary.includes('\n')) {
-        const lines = props.node.failureSummary.split('\n');
-        summaryTitle = lines[0];
-        summaryTextItems = lines.slice(1).map(l => l.trim());
-    } else {
-        // sometimes the text is not separated by newlines, so we try breaking
-        // on punctuation marks. however some languages my not use these..
-        summaryTitle = props.node.failureSummary.split(':')[0] + ':';
-        const summaryText = props.node.failureSummary.substr(summaryTitle.length);
-        summaryTextItems = summaryText
-            .split(/\.\s+/)
-            .map((l, i, a) => a.length - 1 > i ? l + '.' : l);
+    if (props.node.failureSummary) {
+        if (props.node.failureSummary.includes('\n')) {
+            const lines = props.node.failureSummary.split('\n');
+            summaryTitle = lines[0];
+            summaryTextItems = lines.slice(1).map(l => l.trim());
+        } else {
+            // sometimes the text is not separated by newlines, so we try breaking
+            // on punctuation marks. however some languages my not use these..
+            summaryTitle = props.node.failureSummary.split(':')[0] + ':';
+            const summaryText = props.node.failureSummary.substr(summaryTitle.length);
+            summaryTextItems = summaryText
+                .split(/\.\s+/)
+                .map((l, i, a) => a.length - 1 > i ? l + '.' : l);
+        }
     }
     return (
         <li className={style.occurrenceItem}>
             <strong>{props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:occurrence.affectedElement', 'Affected Element')}{counter}</strong>
-            <p className={style.resultDescription}>
-                {summaryTitle}
-                {summaryTextItems.length >= 1 && (
-                    <ul className={style.occurrenceErrorList}>
-                        {summaryTextItems.map((l, i) => (
-                            <li className={style.occurrenceErrorItem} key={i}>{l}</li>
-                        ))}
-                    </ul>
-                )}
-            </p>
+            {props.node.failureSummary && (
+                <p className={style.resultDescription}>
+                    {summaryTitle}
+                    {summaryTextItems.length >= 1 && (
+                        <ul className={style.occurrenceErrorList}>
+                            {summaryTextItems.map((l, i) => (
+                                <li className={style.occurrenceErrorItem} key={i}>{l}</li>
+                            ))}
+                        </ul>
+                    )}
+                </p>
+            )}
             {props.node.target && props.node.target.length > 0 && (
                 <React.Fragment>
                     {props.node.target.map((selector, i) => (
