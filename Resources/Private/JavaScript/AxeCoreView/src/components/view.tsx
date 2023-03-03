@@ -163,10 +163,10 @@ export interface IViewContainerProps {
 
 export const ViewContainer: React.FunctionComponent<IViewContainerProps> = props => {
     const dispatch = useDispatch();
-    const focusNode = useCallback((contextPath: string, fusionPath: string) =>
-        dispatch(actions.CR.Nodes.focus(contextPath, fusionPath)),
-    [ dispatch ]
-    );
+    const focusNode = useCallback((contextPath: string, fusionPath: string) => {
+        dispatch(actions.CR.Nodes.focus(contextPath, fusionPath));
+        dispatch(actions.UI.ContentCanvas.requestScrollIntoView(true));
+    }, [ dispatch ]);
     const popout = useCallback(() => dispatch(axeCoreViewActions.popout()), [ dispatch ]);
     const popin = useCallback(() => dispatch(axeCoreViewActions.popin()), [ dispatch ]);
     const currentlySelectedDocument = useSelector(state => selectors.CR.Nodes.documentNodeContextPathSelector(state));

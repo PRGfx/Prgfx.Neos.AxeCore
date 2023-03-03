@@ -2112,7 +2112,10 @@ const View = props => {
 };
 const ViewContainer = props => {
     const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
-    const focusNode = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])((contextPath, fusionPath) => dispatch(_neos_project_neos_ui_redux_store__WEBPACK_IMPORTED_MODULE_9__["actions"].CR.Nodes.focus(contextPath, fusionPath)), [dispatch]);
+    const focusNode = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])((contextPath, fusionPath) => {
+        dispatch(_neos_project_neos_ui_redux_store__WEBPACK_IMPORTED_MODULE_9__["actions"].CR.Nodes.focus(contextPath, fusionPath));
+        dispatch(_neos_project_neos_ui_redux_store__WEBPACK_IMPORTED_MODULE_9__["actions"].UI.ContentCanvas.requestScrollIntoView(true));
+    }, [dispatch]);
     const popout = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(() => dispatch(_state__WEBPACK_IMPORTED_MODULE_2__["actions"].popout()), [dispatch]);
     const popin = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(() => dispatch(_state__WEBPACK_IMPORTED_MODULE_2__["actions"].popin()), [dispatch]);
     const currentlySelectedDocument = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => _neos_project_neos_ui_redux_store__WEBPACK_IMPORTED_MODULE_9__["selectors"].CR.Nodes.documentNodeContextPathSelector(state));
