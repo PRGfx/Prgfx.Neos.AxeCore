@@ -2494,7 +2494,7 @@ const impactValues = {
     'serious': 2,
     'critical': 3,
 };
-const sortByImpact = (items) => items.sort((a, b) => (impactValues[b.impact] || -1) - (impactValues[a.impact] || -1));
+const sortByImpact = (items) => [...items].sort((a, b) => { var _a, _b; return ((_a = impactValues[b.impact]) !== null && _a !== void 0 ? _a : -1) - ((_b = impactValues[a.impact]) !== null && _b !== void 0 ? _b : -1); });
 const featureEnabled = (frontendConfiguration) => (feature) => {
     var _a, _b;
     const configKey = 'Prgfx.Neos.AxeCore:features';
