@@ -3,6 +3,7 @@ import { NodeResult } from 'axe-core';
 import style from './style.css';
 import { NodeInfo } from './node-info';
 import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
+import { NodeData } from '../types/custom';
 
 export interface IOccurrenceProps {
     node: NodeResult;
@@ -10,6 +11,7 @@ export interface IOccurrenceProps {
     highlightNode: (selector: string | null) => void;
     highlightedSelector: string | null;
     i18nRegistry: I18nRegistry;
+    getNodeData: (contextPath: string) => NodeData | null;
 }
 
 export const Occurrence: React.FunctionComponent<IOccurrenceProps> = props => {
@@ -54,6 +56,7 @@ export const Occurrence: React.FunctionComponent<IOccurrenceProps> = props => {
                     highlightNode={props.highlightNode}
                     highlightedSelector={props.highlightedSelector}
                     i18nRegistry={props.i18nRegistry}
+                    getNodeData={props.getNodeData}
                 />
             ))}
         </div>

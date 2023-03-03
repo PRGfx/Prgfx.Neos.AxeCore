@@ -1593,6 +1593,9 @@ var Popout = function Popout(props) {
     var currentlySelectedDocument = (0, _reactRedux.useSelector)(function (state) {
         return _neosUiReduxStore.selectors.CR.Nodes.documentNodeContextPathSelector(state);
     });
+    var getNodeData = (0, _reactRedux.useSelector)(function (state) {
+        return _neosUiReduxStore.selectors.CR.Nodes.nodeByContextPath(state);
+    });
     var isPoppedOut = (0, _reactRedux.useSelector)(function (state) {
         return _state.selectors.isPoppedOut(state);
     });
@@ -1629,7 +1632,8 @@ var Popout = function Popout(props) {
                     i18nRegistry: props.i18nRegistry,
                     analyze: analyze,
                     featureEnabled: props.featureEnabled,
-                    isPopout: true
+                    isPopout: true,
+                    getNodeData: getNodeData
                 })
             )
         )
@@ -1715,7 +1719,8 @@ var AxeCoreView = (_dec = (0, _reactRedux.connect)(function (state) {
         currentlySelectedDocument: _neosUiReduxStore.selectors.CR.Nodes.documentNodeContextPathSelector(state),
         currentReport: _state.selectors.getReport(state)(_neosUiReduxStore.selectors.CR.Nodes.documentNodeContextPathSelector(state)),
         isAnalyzing: _state.selectors.isAnalyzing(state),
-        isPoppedOut: _state.selectors.isPoppedOut(state)
+        isPoppedOut: _state.selectors.isPoppedOut(state),
+        getNodeData: _neosUiReduxStore.selectors.CR.Nodes.nodeByContextPath(state)
     };
 }, {
     focusNode: _neosUiReduxStore.actions.CR.Nodes.focus,
@@ -1751,7 +1756,8 @@ var AxeCoreView = (_dec = (0, _reactRedux.connect)(function (state) {
             return _react2.default.createElement(_view.ViewContainer, {
                 i18nRegistry: this.props.i18nRegistry,
                 featureEnabled: isFeatureEnabled,
-                analyze: this.analyze
+                analyze: this.analyze,
+                getNodeData: this.props.getNodeData
             });
         }
     }]);
@@ -1878,11 +1884,15 @@ const NodeInfoRow = props => (react__WEBPACK_IMPORTED_MODULE_0___default.a.creat
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { className: _node_info_css__WEBPACK_IMPORTED_MODULE_2___default.a.nodeInfoList__title }, props.title),
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: _node_info_css__WEBPACK_IMPORTED_MODULE_2___default.a.nodeInfoList__content }, props.children)));
 const NodeInfo = props => {
-    var _a;
+    var _a, _b;
     const nodePath = props.contentElement
         ? props.contentElement.contextPath.split('@')[0]
         : null;
-    const nodeName = nodePath === null || nodePath === void 0 ? void 0 : nodePath.split('/').pop();
+    const nodeData = props.contentElement
+        ? props.getNodeData(props.contentElement.contextPath)
+        : null;
+    console.log('nodeData', nodeData);
+    const nodeName = (_a = nodeData === null || nodeData === void 0 ? void 0 : nodeData.label) !== null && _a !== void 0 ? _a : nodePath === null || nodePath === void 0 ? void 0 : nodePath.split('/').pop();
     const nodeIsHighlighted = props.highlightedSelector === props.selector;
     const onHighlightElement = () => props.highlightNode(nodeIsHighlighted ? null : props.selector);
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", { className: _node_info_css__WEBPACK_IMPORTED_MODULE_2___default.a.nodeInfoList },
@@ -1891,7 +1901,7 @@ const NodeInfo = props => {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_1__["IconButton"], { icon: "crosshairs", "aria-label": props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:nodeInfo.highlightNode'), onClick: onHighlightElement, "aria-pressed": nodeIsHighlighted ? 'true' : 'false', isPressed: nodeIsHighlighted })),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NodeInfoRow, { title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:nodeInfo.html') },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("pre", { className: "break" }, props.html)),
-        ((_a = props.contentElement) === null || _a === void 0 ? void 0 : _a.fusionPrototype) && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NodeInfoRow, { title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:nodeInfo.renderingPrototype') },
+        ((_b = props.contentElement) === null || _b === void 0 ? void 0 : _b.fusionPrototype) && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NodeInfoRow, { title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:nodeInfo.renderingPrototype') },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.contentElement.fusionPrototype))),
         nodePath && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NodeInfoRow, { title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:nodeInfo.neosNode') },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { title: nodePath }, nodeName),
@@ -1942,7 +1952,7 @@ const Occurrence = props => {
         props.node.failureSummary && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.resultDescription },
             summaryTitle,
             summaryTextItems.length >= 1 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorList }, summaryTextItems.map((l, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorItem, key: i }, l))))))),
-        props.node.target && props.node.target.length > 0 && props.node.target.map((selector, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_node_info__WEBPACK_IMPORTED_MODULE_2__["NodeInfo"], { key: i, selector: selector, html: props.node.html, contentElement: props.node.contentElement[i], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry })))));
+        props.node.target && props.node.target.length > 0 && props.node.target.map((selector, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_node_info__WEBPACK_IMPORTED_MODULE_2__["NodeInfo"], { key: i, selector: selector, html: props.node.html, contentElement: props.node.contentElement[i], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry, getNodeData: props.getNodeData })))));
 };
 
 
@@ -1967,7 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const ResultList = props => {
     const sortedItems = Object(_util__WEBPACK_IMPORTED_MODULE_2__["sortByImpact"])(props.items);
-    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, sortedItems.map((data, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result__WEBPACK_IMPORTED_MODULE_1__["Result"], { key: i, result: data, focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, sortedItems.map((data, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result__WEBPACK_IMPORTED_MODULE_1__["Result"], { key: i, result: data, focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry, getNodeData: props.getNodeData })))));
 };
 
 
@@ -2054,7 +2064,7 @@ const Result = props => {
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_1__["Icon"], { icon: "external-link-alt" }))),
         props.result.nodes && props.result.nodes.length > 0 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OccurrencePaginator__WEBPACK_IMPORTED_MODULE_5__["OccurrencePaginator"], { count: props.result.nodes.length, index: selectedOccurrence, onChange: setSelectedOccurrence, i18nRegistry: props.i18nRegistry }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_occurrence__WEBPACK_IMPORTED_MODULE_4__["Occurrence"], { key: selectedOccurrence, node: props.result.nodes[selectedOccurrence], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry })))));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_occurrence__WEBPACK_IMPORTED_MODULE_4__["Occurrence"], { key: selectedOccurrence, node: props.result.nodes[selectedOccurrence], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry, getNodeData: props.getNodeData })))));
 };
 
 
@@ -2135,6 +2145,13 @@ const View = props => {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:popout.poppedOut')),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_5__["Button"], { onClick: props.popin }, props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:popout.popin'))));
     }
+    const commonResultListProps = {
+        focusNode: props.focusNode,
+        i18nRegistry: props.i18nRegistry,
+        highlightNode: highlightNode,
+        highlightedSelector: highlightedSelector,
+        getNodeData: props.getNodeData,
+    };
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
         props.isAnalyzing && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:view.analyzing')),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_5__["Button"], { disabled: props.isAnalyzing || !props.currentlySelectedDocument, onClick: props.analyze, style: "brand", icon: "search" }, props.currentReport
@@ -2146,13 +2163,13 @@ const View = props => {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_export__WEBPACK_IMPORTED_MODULE_11__["ExportButton"], { label: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:export.export'), results: props.currentReport, filename: Object(_export__WEBPACK_IMPORTED_MODULE_11__["getFilenameFromTitle"])() }))),
         props.currentReport && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_section__WEBPACK_IMPORTED_MODULE_6__["ResultSection"], { icon: "exclamation-circle", iconColor: "error", title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:results.category.violations', 'Violations', [props.currentReport.violations.length]), collapsed: props.currentReport.violations.length === 0 },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], { items: props.currentReport.violations, focusNode: props.focusNode, i18nRegistry: props.i18nRegistry, highlightNode: highlightNode, highlightedSelector: highlightedSelector })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], Object.assign({ items: props.currentReport.violations }, commonResultListProps))),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_section__WEBPACK_IMPORTED_MODULE_6__["ResultSection"], { icon: "question-circle", iconColor: "default", title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:results.category.incomplete', 'Incomplete', [props.currentReport.incomplete.length]), collapsed: true },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], { items: props.currentReport.incomplete, focusNode: props.focusNode, i18nRegistry: props.i18nRegistry, highlightNode: highlightNode, highlightedSelector: highlightedSelector })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], Object.assign({ items: props.currentReport.incomplete }, commonResultListProps))),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_section__WEBPACK_IMPORTED_MODULE_6__["ResultSection"], { icon: "check-circle", iconColor: "success", title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:results.category.passes', 'Passes', [props.currentReport.passes.length]), collapsed: true },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], { items: props.currentReport.passes, focusNode: props.focusNode, i18nRegistry: props.i18nRegistry, highlightNode: highlightNode, highlightedSelector: highlightedSelector })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], Object.assign({ items: props.currentReport.passes }, commonResultListProps))),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_section__WEBPACK_IMPORTED_MODULE_6__["ResultSection"], { icon: "minus-circle", iconColor: "default", title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:results.category.inapplicable', 'Inapplicable', [props.currentReport.inapplicable.length]), collapsed: true },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], { items: props.currentReport.inapplicable, focusNode: props.focusNode, i18nRegistry: props.i18nRegistry, highlightNode: highlightNode, highlightedSelector: highlightedSelector }))))));
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_result_list__WEBPACK_IMPORTED_MODULE_7__["ResultList"], Object.assign({ items: props.currentReport.inapplicable }, commonResultListProps)))))));
 };
 const ViewContainer = props => {
     const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
@@ -2166,7 +2183,7 @@ const ViewContainer = props => {
     const currentReport = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => _state__WEBPACK_IMPORTED_MODULE_2__["selectors"].getReport(state)(_neos_project_neos_ui_redux_store__WEBPACK_IMPORTED_MODULE_9__["selectors"].CR.Nodes.documentNodeContextPathSelector(state)));
     const isAnalyzing = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => _state__WEBPACK_IMPORTED_MODULE_2__["selectors"].isAnalyzing(state));
     const isPoppedOut = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => _state__WEBPACK_IMPORTED_MODULE_2__["selectors"].isPoppedOut(state));
-    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(View, { isAnalyzing: isAnalyzing, isPoppedOut: isPoppedOut, currentReport: currentReport, currentlySelectedDocument: currentlySelectedDocument, focusNode: focusNode, analyze: props.analyze, popout: popout, popin: popin, i18nRegistry: props.i18nRegistry, isPopout: props.isPopout, featureEnabled: props.featureEnabled }));
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(View, { isAnalyzing: isAnalyzing, isPoppedOut: isPoppedOut, currentReport: currentReport, currentlySelectedDocument: currentlySelectedDocument, focusNode: focusNode, analyze: props.analyze, popout: popout, popin: popin, i18nRegistry: props.i18nRegistry, isPopout: props.isPopout, featureEnabled: props.featureEnabled, getNodeData: props.getNodeData }));
 };
 
 

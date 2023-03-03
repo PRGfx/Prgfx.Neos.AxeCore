@@ -12,6 +12,7 @@ import { featureEnabled } from './util';
         currentReport: axeCoreViewSelectors.getReport(state)(selectors.CR.Nodes.documentNodeContextPathSelector(state)),
         isAnalyzing: axeCoreViewSelectors.isAnalyzing(state),
         isPoppedOut: axeCoreViewSelectors.isPoppedOut(state),
+        getNodeData: selectors.CR.Nodes.nodeByContextPath(state),
     }),
     {
         focusNode: actions.CR.Nodes.focus,
@@ -42,6 +43,7 @@ export default class AxeCoreView extends Component {
                 i18nRegistry={this.props.i18nRegistry}
                 featureEnabled={isFeatureEnabled}
                 analyze={this.analyze}
+                getNodeData={this.props.getNodeData}
             />
         );
     }

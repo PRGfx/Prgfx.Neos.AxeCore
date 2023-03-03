@@ -3,6 +3,7 @@ import { IconButton } from '@neos-project/react-ui-components';
 import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
 import { ContentElementInfo } from '../types/report';
 import styles from './node-info.css';
+import { NodeData } from '../types/custom';
 
 interface INodeInfoProps {
     selector: string;
@@ -12,6 +13,7 @@ interface INodeInfoProps {
     highlightNode: (selector: string | null) => void;
     highlightedSelector: string | null;
     i18nRegistry: I18nRegistry;
+    getNodeData: (contextPath: string) => NodeData | null;
 }
 
 const NodeInfoRow: React.FunctionComponent<{title: string}> = props => (
@@ -25,7 +27,11 @@ export const NodeInfo: React.FunctionComponent<INodeInfoProps> = props => {
     const nodePath = props.contentElement
         ? props.contentElement.contextPath.split('@')[0]
         : null;
-    const nodeName = nodePath?.split('/').pop();
+    const nodeData = props.contentElement
+        ? props.getNodeData(props.contentElement.contextPath)
+        : null;
+    console.log('nodeData', nodeData);
+    const nodeName = nodeData?.label ?? nodePath?.split('/').pop();
     const nodeIsHighlighted = props.highlightedSelector === props.selector;
     const onHighlightElement = () =>
         props.highlightNode(nodeIsHighlighted ? null : props.selector);

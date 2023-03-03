@@ -6,6 +6,7 @@ import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
 import style from './style.css';
 import { Occurrence } from './occurrence';
 import { OccurrencePaginator } from './OccurrencePaginator';
+import { NodeData } from '../types/custom';
 
 export interface IResultProps {
     result: AxeResult;
@@ -13,6 +14,7 @@ export interface IResultProps {
     highlightNode: (selector: string | null) => void;
     highlightedSelector: string | null;
     i18nRegistry: I18nRegistry;
+    getNodeData: (contextPath: string) => NodeData | null;
 }
 
 export const Result: React.FunctionComponent<IResultProps> = props => {
@@ -64,6 +66,7 @@ export const Result: React.FunctionComponent<IResultProps> = props => {
                         highlightNode={props.highlightNode}
                         highlightedSelector={props.highlightedSelector}
                         i18nRegistry={props.i18nRegistry}
+                        getNodeData={props.getNodeData}
                     />
                 </>
             )}

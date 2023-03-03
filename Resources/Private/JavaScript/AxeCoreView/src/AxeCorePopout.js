@@ -17,6 +17,7 @@ const Popout = (props) => {
     const store = useStore();
     const dispatch = useDispatch();
     const currentlySelectedDocument = useSelector(state => selectors.CR.Nodes.documentNodeContextPathSelector(state));
+    const getNodeData = useSelector(state => selectors.CR.Nodes.nodeByContextPath(state));
     const isPoppedOut = useSelector(state => axeCoreViewSelectors.isPoppedOut(state));
     const popin = useCallback(() => dispatch(axeCoreViewActions.popin()), [ dispatch ]);
     const analyze = useCallback(() => dispatch(axeCoreViewActions.analyze(currentlySelectedDocument)), [ dispatch, currentlySelectedDocument ]);
@@ -44,6 +45,7 @@ const Popout = (props) => {
                         analyze={analyze}
                         featureEnabled={props.featureEnabled}
                         isPopout
+                        getNodeData={getNodeData}
                     />
                 </Provider>
             </div>

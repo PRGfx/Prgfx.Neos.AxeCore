@@ -3,6 +3,7 @@ import { Result as AxeResult } from 'axe-core';
 import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
 import { Result } from './result';
 import { sortByImpact } from '../util';
+import { NodeData } from '../types/custom';
 
 export interface IResultListProps {
     items: AxeResult[];
@@ -10,6 +11,7 @@ export interface IResultListProps {
     highlightNode: (selector: string | null) => void;
     highlightedSelector: string | null;
     i18nRegistry: I18nRegistry;
+    getNodeData: (contextPath: string) => NodeData | null;
 }
 
 export const ResultList: React.FunctionComponent<IResultListProps> = props => {
@@ -24,6 +26,7 @@ export const ResultList: React.FunctionComponent<IResultListProps> = props => {
                     highlightNode={props.highlightNode}
                     highlightedSelector={props.highlightedSelector}
                     i18nRegistry={props.i18nRegistry}
+                    getNodeData={props.getNodeData}
                 />
             ))}
         </ul>

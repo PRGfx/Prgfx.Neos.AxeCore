@@ -7,11 +7,12 @@ import { highlightElement } from '../guest-frame/highlight';
 import { getGuestFrameWindow } from '../guest-frame/util';
 import { Button } from '@neos-project/react-ui-components';
 import { ResultSection } from './result-section';
-import { ResultList } from './result-list';
+import { IResultListProps, ResultList } from './result-list';
 import { PopoutFeatureName } from '../AxeCorePopout';
 import { actions, selectors } from '@neos-project/neos-ui-redux-store';
 import styles from './style.css';
 import { ExportButton, ExportFeatureName, getFilenameFromTitle } from './export';
+import { NodeData } from '../types/custom';
 
 export interface IViewProps {
     isAnalyzing: boolean;
@@ -25,6 +26,7 @@ export interface IViewProps {
     popin: () => void;
     i18nRegistry: I18nRegistry;
     featureEnabled: (feature: string) => boolean;
+    getNodeData: (contextPath: string) => NodeData | null;
 }
 
 export const View: React.FunctionComponent<IViewProps> = props => {
@@ -33,6 +35,7 @@ export const View: React.FunctionComponent<IViewProps> = props => {
         highlightElement(selector);
         setHighlightedSelector(selector);
     };
+
     useEffect(() => {
         return () => {
             const gfw = getGuestFrameWindow();
@@ -44,6 +47,7 @@ export const View: React.FunctionComponent<IViewProps> = props => {
             }
         };
     });
+
     if (!props.isPopout && props.isPoppedOut) {
         return (
             <div>
@@ -58,6 +62,15 @@ export const View: React.FunctionComponent<IViewProps> = props => {
             </div>
         );
     }
+
+    const commonResultListProps: Omit<IResultListProps, 'items'> = {
+        focusNode: props.focusNode,
+        i18nRegistry: props.i18nRegistry,
+        highlightNode: highlightNode,
+        highlightedSelector: highlightedSelector,
+        getNodeData: props.getNodeData,
+    };
+
     return (
         <div>
             {props.isAnalyzing && <p>{props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:view.analyzing')}</p>}
@@ -100,10 +113,7 @@ export const View: React.FunctionComponent<IViewProps> = props => {
                     >
                         <ResultList
                             items={props.currentReport.violations}
-                            focusNode={props.focusNode}
-                            i18nRegistry={props.i18nRegistry}
-                            highlightNode={highlightNode}
-                            highlightedSelector={highlightedSelector}
+                            {...commonResultListProps}
                         />
                     </ResultSection>
                     <ResultSection
@@ -114,10 +124,7 @@ export const View: React.FunctionComponent<IViewProps> = props => {
                     >
                         <ResultList
                             items={props.currentReport.incomplete}
-                            focusNode={props.focusNode}
-                            i18nRegistry={props.i18nRegistry}
-                            highlightNode={highlightNode}
-                            highlightedSelector={highlightedSelector}
+                            {...commonResultListProps}
                         />
                     </ResultSection>
                     <ResultSection
@@ -128,10 +135,7 @@ export const View: React.FunctionComponent<IViewProps> = props => {
                     >
                         <ResultList
                             items={props.currentReport.passes}
-                            focusNode={props.focusNode}
-                            i18nRegistry={props.i18nRegistry}
-                            highlightNode={highlightNode}
-                            highlightedSelector={highlightedSelector}
+                            {...commonResultListProps}
                         />
                     </ResultSection>
                     <ResultSection
@@ -142,10 +146,7 @@ export const View: React.FunctionComponent<IViewProps> = props => {
                     >
                         <ResultList
                             items={props.currentReport.inapplicable}
-                            focusNode={props.focusNode}
-                            i18nRegistry={props.i18nRegistry}
-                            highlightNode={highlightNode}
-                            highlightedSelector={highlightedSelector}
+                            {...commonResultListProps}
                         />
                     </ResultSection>
                 </React.Fragment>
@@ -159,6 +160,7 @@ export interface IViewContainerProps {
     analyze: () => void;
     isPopout?: boolean;
     featureEnabled: (feature: string) => boolean;
+    getNodeData: (contextPath: string) => NodeData | null;
 }
 
 export const ViewContainer: React.FunctionComponent<IViewContainerProps> = props => {
@@ -186,6 +188,7 @@ export const ViewContainer: React.FunctionComponent<IViewContainerProps> = props
             i18nRegistry={props.i18nRegistry}
             isPopout={props.isPopout}
             featureEnabled={props.featureEnabled}
+            getNodeData={props.getNodeData}
         />
     );
 };
