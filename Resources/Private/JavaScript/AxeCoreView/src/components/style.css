@@ -38,9 +38,11 @@
 
 .resultItem {
     margin-top: var(--spacing-Half);
+    & + & {
+        margin-top: var(--spacing-Full);
+    }
 }
 .resultTitle {
-    font-weight: 700;
 }
 .resultDescription {
     font-weight: var(--fontsCopy-CssWeight);
@@ -76,6 +78,40 @@ li.occurrenceErrorItem {
     height: 100%;
     padding: var(--spacing-Full);
     overflow: auto;
+}
+
+.occurrencePagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+.occurrencePaginationButton {
+    background-color: var(--colors-ContrastNeutral);
+    color: var(--colors-ContrastBrightest);
+    padding: 4px;
+    border: 0;
+    cursor: pointer;
+
+    &:focus {
+         outline: 1px solid var(--colors-PrimaryBlue);
+    }
+
+    &:enabled:hover {
+        background-color: var(--colors-ContrastDarker);
+    }
+
+    &[disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+
+        &:hover,
+        &.btn--isPressed,
+        &:hover i,
+        & i {
+            color: var(--colors-ContrastBrightest);
+        }
+    }
 }
 
 :global {

@@ -1762,6 +1762,46 @@ exports.default = AxeCoreView;
 
 /***/ }),
 
+/***/ "./src/components/OccurrencePaginator.tsx":
+/*!************************************************!*\
+  !*** ./src/components/OccurrencePaginator.tsx ***!
+  \************************************************/
+/*! exports provided: OccurrencePaginator */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OccurrencePaginator", function() { return OccurrencePaginator; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ "./src/components/style.css");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_css__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const commonButtonProps = {
+    type: 'button',
+    className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrencePaginationButton,
+};
+const OccurrencePaginator = props => {
+    const counter = props.count > 1
+        ? ` (${props.index + 1}/${props.count})`
+        : '';
+    const isFirst = props.index === 0;
+    const isLast = props.index === props.count - 1;
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrencePagination },
+        props.showFirst && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", Object.assign({}, commonButtonProps, { disabled: isFirst, title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.first'), "aria-label": props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.first'), onClick: () => props.onChange(0) }), "\u21E4")),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", Object.assign({}, commonButtonProps, { disabled: props.index === 0, title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.previous'), "aria-label": props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.previous'), onClick: () => props.onChange(Math.max(0, props.index - 1)) }), "\u2190"),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null,
+                props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:occurrence.affectedElement', 'Affected Element'),
+                counter)),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", Object.assign({}, commonButtonProps, { disabled: props.index === props.count - 1, title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.next'), "aria-label": props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.next'), onClick: () => props.onChange(Math.min(props.index + 1, props.count - 1)) }), "\u2192"),
+        props.showLast && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", Object.assign({}, commonButtonProps, { disabled: isLast, title: props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.last'), "aria-label": props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:paginateOccurrences.last'), onClick: () => props.onChange(props.count - 1) }), "\u21E5"))));
+};
+
+
+/***/ }),
+
 /***/ "./src/components/export.tsx":
 /*!***********************************!*\
   !*** ./src/components/export.tsx ***!
@@ -1880,9 +1920,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Occurrence = props => {
-    const counter = props.occurrenceCount > 1
-        ? ` (${props.index + 1}/${props.occurrenceCount})`
-        : '';
     let summaryTitle;
     let summaryTextItems;
     if (props.node.failureSummary) {
@@ -1901,14 +1938,11 @@ const Occurrence = props => {
                 .map((l, i, a) => a.length - 1 > i ? l + '.' : l);
         }
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceItem },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null,
-            props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:occurrence.affectedElement', 'Affected Element'),
-            counter),
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceItem },
         props.node.failureSummary && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.resultDescription },
             summaryTitle,
             summaryTextItems.length >= 1 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorList }, summaryTextItems.map((l, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_1___default.a.occurrenceErrorItem, key: i }, l))))))),
-        props.node.target && props.node.target.length > 0 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, props.node.target.map((selector, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_node_info__WEBPACK_IMPORTED_MODULE_2__["NodeInfo"], { key: i, selector: selector, html: props.node.html, contentElement: props.node.contentElement[i], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry })))))));
+        props.node.target && props.node.target.length > 0 && props.node.target.map((selector, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_node_info__WEBPACK_IMPORTED_MODULE_2__["NodeInfo"], { key: i, selector: selector, html: props.node.html, contentElement: props.node.contentElement[i], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry })))));
 };
 
 
@@ -1997,21 +2031,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.css */ "./src/components/style.css");
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_css__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _occurrence__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./occurrence */ "./src/components/occurrence.tsx");
+/* harmony import */ var _OccurrencePaginator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./OccurrencePaginator */ "./src/components/OccurrencePaginator.tsx");
 
 
 
 
 
-const Result = props => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultItem },
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_1__["Icon"], { title: props.result.impact, icon: "circle", className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultStatus, _style_css__WEBPACK_IMPORTED_MODULE_3___default.a[`resultStatus--${props.result.impact}`]) }),
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", { className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultTitle }, props.result.description),
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultDescription },
-        props.result.help,
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { href: props.result.helpUrl, className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultLink, target: "_blank", rel: "noopener noreferrer" },
-            props.i18nRegistry.translate('result.ruleLink', 'Details', [props.result.id], 'Prgfx.Neos.AxeCore', 'AxeCoreView'),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_1__["Icon"], { icon: "external-link-alt" }))),
-    props.result.nodes && props.result.nodes.length > 0 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, props.result.nodes.map((node, i) => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_occurrence__WEBPACK_IMPORTED_MODULE_4__["Occurrence"], { key: i, node: node, focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, index: i, occurrenceCount: props.result.nodes.length, i18nRegistry: props.i18nRegistry })))))));
+
+const Result = props => {
+    const [selectedOccurrence, setSelectedOccurrence] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+        setSelectedOccurrence(0);
+    }, [props.result.nodes]);
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultItem },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_1__["Icon"], { title: props.result.impact, icon: "circle", className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultStatus, _style_css__WEBPACK_IMPORTED_MODULE_3___default.a[`resultStatus--${props.result.impact}`]) }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", { className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultTitle }, props.result.description),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultDescription },
+            props.result.help,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { href: props.result.helpUrl, className: _style_css__WEBPACK_IMPORTED_MODULE_3___default.a.resultLink, target: "_blank", rel: "noopener noreferrer" },
+                props.i18nRegistry.translate('result.ruleLink', 'Details', [props.result.id], 'Prgfx.Neos.AxeCore', 'AxeCoreView'),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_neos_project_react_ui_components__WEBPACK_IMPORTED_MODULE_1__["Icon"], { icon: "external-link-alt" }))),
+        props.result.nodes && props.result.nodes.length > 0 && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OccurrencePaginator__WEBPACK_IMPORTED_MODULE_5__["OccurrencePaginator"], { count: props.result.nodes.length, index: selectedOccurrence, onChange: setSelectedOccurrence, i18nRegistry: props.i18nRegistry }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_occurrence__WEBPACK_IMPORTED_MODULE_4__["Occurrence"], { key: selectedOccurrence, node: props.result.nodes[selectedOccurrence], focusNode: props.focusNode, highlightNode: props.highlightNode, highlightedSelector: props.highlightedSelector, i18nRegistry: props.i18nRegistry })))));
+};
 
 
 /***/ }),
@@ -2024,7 +2068,7 @@ const Result = props => (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElem
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"resultSection":"style__resultSection___3FcvA","propertyGroupLabel":"style__propertyGroupLabel___2SK1a","spacer":"style__spacer___3UW3z","iconWrapper":"style__iconWrapper___13I7F","resultStatus":"style__resultStatus___e4f6n","resultStatus--minor":"style__resultStatus--minor___2dJLm","resultStatus--moderate":"style__resultStatus--moderate___2NDki","resultStatus--serious":"style__resultStatus--serious___37kbZ","resultStatus--critical":"style__resultStatus--critical___IewOk","resultItem":"style__resultItem___1E391","resultTitle":"style__resultTitle___Dwgl3","resultDescription":"style__resultDescription___1VdaL","resultLink":"style__resultLink___2-xbX","occurrenceItem":"style__occurrenceItem___1efXE","occurrenceErrorList":"style__occurrenceErrorList___1g8ab","occurrenceErrorItem":"style__occurrenceErrorItem___2v2Yv","popout":"style__popout___1DBW9"};
+module.exports = {"resultSection":"style__resultSection___3FcvA","propertyGroupLabel":"style__propertyGroupLabel___2SK1a","spacer":"style__spacer___3UW3z","iconWrapper":"style__iconWrapper___13I7F","resultStatus":"style__resultStatus___e4f6n","resultStatus--minor":"style__resultStatus--minor___2dJLm","resultStatus--moderate":"style__resultStatus--moderate___2NDki","resultStatus--serious":"style__resultStatus--serious___37kbZ","resultStatus--critical":"style__resultStatus--critical___IewOk","resultItem":"style__resultItem___1E391","resultTitle":"style__resultTitle___Dwgl3","resultDescription":"style__resultDescription___1VdaL","resultLink":"style__resultLink___2-xbX","occurrenceItem":"style__occurrenceItem___1efXE","occurrenceErrorList":"style__occurrenceErrorList___1g8ab","occurrenceErrorItem":"style__occurrenceErrorItem___2v2Yv","popout":"style__popout___1DBW9","occurrencePagination":"style__occurrencePagination___2iNCj","occurrencePaginationButton":"style__occurrencePaginationButton___5d2Kc","btn--isPressed":"style__btn--isPressed___lYh6O"};
 
 /***/ }),
 

@@ -44,8 +44,11 @@
     margin-top: 8px;
 }
 
+.style__resultItem___1E391 + .style__resultItem___1E391 {
+        margin-top: 16px;
+    }
+
 .style__resultTitle___Dwgl3 {
-    font-weight: 700;
 }
 
 .style__resultDescription___1VdaL {
@@ -91,6 +94,50 @@ li.style__occurrenceErrorItem___2v2Yv {
     padding: 16px;
     overflow: auto;
 }
+
+.style__occurrencePagination___2iNCj {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.style__occurrencePaginationButton___5d2Kc {
+    background-color: #323232;
+    color: #FFF;
+    padding: 4px;
+    border: 0;
+    cursor: pointer;
+}
+
+.style__occurrencePaginationButton___5d2Kc:focus {
+         outline: 1px solid #00ADEE;
+    }
+
+.style__occurrencePaginationButton___5d2Kc:enabled:hover {
+        background-color: #222;
+    }
+
+.style__occurrencePaginationButton___5d2Kc[disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+.style__occurrencePaginationButton___5d2Kc[disabled]:hover {
+            color: #FFF;
+        }
+
+.style__occurrencePaginationButton___5d2Kc[disabled].style__btn--isPressed___lYh6O {
+            color: #FFF;
+        }
+
+.style__occurrencePaginationButton___5d2Kc[disabled]:hover i {
+            color: #FFF;
+        }
+
+.style__occurrencePaginationButton___5d2Kc[disabled] i {
+            color: #FFF;
+        }
 
 .style__icon--color-success {
         color: #00a338;

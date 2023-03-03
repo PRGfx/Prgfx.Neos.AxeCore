@@ -62,6 +62,18 @@
             <trans-unit id="export.export">
                 <source>Export results</source>
             </trans-unit>
+            <trans-unit id="paginateOccurrences.first">
+                <source>First occurrence</source>
+            </trans-unit>
+            <trans-unit id="paginateOccurrences.previous">
+                <source>Previous occurrence</source>
+            </trans-unit>
+            <trans-unit id="paginateOccurrences.next">
+                <source>Next occurrence</source>
+            </trans-unit>
+            <trans-unit id="paginateOccurrences.last">
+                <source>Last occurrence</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

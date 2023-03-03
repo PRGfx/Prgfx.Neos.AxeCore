@@ -6,8 +6,6 @@ import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
 
 export interface IOccurrenceProps {
     node: NodeResult;
-    index: number;
-    occurrenceCount: number;
     focusNode: (contextPath: string, fusionPath: string) => void;
     highlightNode: (selector: string | null) => void;
     highlightedSelector: string | null;
@@ -15,9 +13,6 @@ export interface IOccurrenceProps {
 }
 
 export const Occurrence: React.FunctionComponent<IOccurrenceProps> = props => {
-    const counter = props.occurrenceCount > 1
-        ? ` (${props.index + 1}/${props.occurrenceCount})`
-        : '';
     let summaryTitle: string;
     let summaryTextItems: string[];
     if (props.node.failureSummary) {
@@ -36,8 +31,7 @@ export const Occurrence: React.FunctionComponent<IOccurrenceProps> = props => {
         }
     }
     return (
-        <li className={style.occurrenceItem}>
-            <strong>{props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:occurrence.affectedElement', 'Affected Element')}{counter}</strong>
+        <div className={style.occurrenceItem}>
             {props.node.failureSummary && (
                 <p className={style.resultDescription}>
                     {summaryTitle}
@@ -50,22 +44,18 @@ export const Occurrence: React.FunctionComponent<IOccurrenceProps> = props => {
                     )}
                 </p>
             )}
-            {props.node.target && props.node.target.length > 0 && (
-                <React.Fragment>
-                    {props.node.target.map((selector, i) => (
-                        <NodeInfo
-                            key={i}
-                            selector={selector}
-                            html={props.node.html}
-                            contentElement={props.node.contentElement[i]}
-                            focusNode={props.focusNode}
-                            highlightNode={props.highlightNode}
-                            highlightedSelector={props.highlightedSelector}
-                            i18nRegistry={props.i18nRegistry}
-                        />
-                    ))}
-                </React.Fragment>
-            )}
-        </li>
+            {props.node.target && props.node.target.length > 0 && props.node.target.map((selector, i) => (
+                <NodeInfo
+                    key={i}
+                    selector={selector}
+                    html={props.node.html}
+                    contentElement={props.node.contentElement[i]}
+                    focusNode={props.focusNode}
+                    highlightNode={props.highlightNode}
+                    highlightedSelector={props.highlightedSelector}
+                    i18nRegistry={props.i18nRegistry}
+                />
+            ))}
+        </div>
     );
 };

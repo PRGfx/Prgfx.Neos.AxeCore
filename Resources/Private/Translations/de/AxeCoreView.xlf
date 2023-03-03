@@ -82,6 +82,22 @@
                 <source>Export results</source>
                 <target>Ergebnisse exportieren</target>
             </trans-unit>
+            <trans-unit id="paginateOccurrences.first">
+                <source>First occurrence</source>
+                <target>Erstes Vorkommen</target>
+            </trans-unit>
+            <trans-unit id="paginateOccurrences.previous">
+                <source>Previous occurrence</source>
+                <target>Vorheriges Vorkommen</target>
+            </trans-unit>
+            <trans-unit id="paginateOccurrences.next">
+                <source>Next occurrence</source>
+                <target>Nächstes Vorkommen</target>
+            </trans-unit>
+            <trans-unit id="paginateOccurrences.last">
+                <source>Last occurrence</source>
+                <target>Letztes Vorkommen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
