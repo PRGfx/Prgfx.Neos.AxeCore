@@ -11,6 +11,13 @@ manifest('Prgfx.Neos.AxeCore:AxeCoreView', {}, (globalRegistry, { frontendConfig
         component: AxeCoreView,
     });
 
+    const previewModes = frontendConfiguration.editPreviewModes;
+    Object.entries(previewModes).forEach(([ key, value ]) => {
+        if (value.hidden) {
+            delete previewModes[key];
+        }
+    });
+
     const sagasRegistry = globalRegistry.get('sagas');
     sagasRegistry.set('Prgfx.Neos.AxeCore/analyze', { saga: handleAnalyzerRequest });
 

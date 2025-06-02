@@ -1761,6 +1761,12 @@
     viewsRegistry.set("Prgfx.Neos.AxeCore/Inspector/Views/AxeCoreView", {
       component: AxeCoreView
     });
+    const previewModes = frontendConfiguration.editPreviewModes;
+    Object.entries(previewModes).forEach(([key, value]) => {
+      if (value.hidden) {
+        delete previewModes[key];
+      }
+    });
     const sagasRegistry = globalRegistry.get("sagas");
     sagasRegistry.set("Prgfx.Neos.AxeCore/analyze", { saga: handleAnalyzerRequest });
     const reducersRegistry = globalRegistry.get("reducers");
