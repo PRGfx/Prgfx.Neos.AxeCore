@@ -22,16 +22,16 @@
 
 .resultStatus {
     margin-right: var(--spacing-Quarter);
-    &--minor {
+    &.resultStatus--minor {
         color: var(--colors-WarnHover);
     }
-    &--moderate {
+    &.resultStatus--moderate {
         color: var(--colors-Warn);
     }
-    &--serious {
+    &.resultStatus--serious {
         color: var(--colors-Error);
     }
-    &--critical {
+    &.resultStatus--critical {
         color: #b30b0b;
     }
 }

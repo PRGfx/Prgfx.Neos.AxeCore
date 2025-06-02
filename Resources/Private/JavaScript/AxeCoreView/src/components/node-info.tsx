@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { IconButton } from '@neos-project/react-ui-components';
 import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
 import { ContentElementInfo } from '../types/report';
-import styles from './node-info.css';
+import styles from './node-info.module.css';
 import { NodeData } from '../types/custom';
+import type { CrossTreeSelector } from 'axe-core';
 
 interface INodeInfoProps {
-    selector: string;
+    selector: CrossTreeSelector;
     html: string;
     contentElement: ContentElementInfo | null;
     focusNode: (contextPath: string, fusionPath: string) => void;
@@ -17,28 +18,33 @@ interface INodeInfoProps {
 }
 
 const NodeInfoRow: React.FunctionComponent<{title: string}> = props => (
-    <li className={styles.nodeInfoList__item}>
-        <p className={styles.nodeInfoList__title}>{props.title}</p>
-        <div className={styles.nodeInfoList__content}>{props.children}</div>
+    <li className={styles.item}>
+        <p className={styles.title}>{props.title}</p>
+        <div className={styles.content}>{props.children}</div>
     </li>
 );
 
 export const NodeInfo: React.FunctionComponent<INodeInfoProps> = props => {
-    const nodePath = props.contentElement
-        ? props.contentElement.contextPath.split('@')[0]
-        : null;
-    const nodeData = props.contentElement
-        ? props.getNodeData(props.contentElement.contextPath)
-        : null;
-    console.log('nodeData', nodeData);
+    const [ nodePath, nodeData ] = useMemo(() => {
+        const nodePath = props.contentElement?.contextPath
+            ? props.contentElement.contextPath.split('@')[0]
+            : null;
+        const nodeData = props.contentElement?.contextPath
+            ? props.getNodeData(props.contentElement.contextPath)
+            : null;
+        return [ nodePath, nodeData ];
+    }, [ props.contentElement, props.getNodeData ]);
+
     const nodeName = nodeData?.label ?? nodePath?.split('/').pop();
     const nodeIsHighlighted = props.highlightedSelector === props.selector;
+
     const onHighlightElement = () =>
-        props.highlightNode(nodeIsHighlighted ? null : props.selector);
+        props.highlightNode(nodeIsHighlighted ? null : props.selector.toString());
+
     return (
         <ul className={styles.nodeInfoList}>
             <NodeInfoRow title={props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:nodeInfo.domSelector')}>
-                <pre>{props.selector}</pre>
+                <pre>{props.selector.toString()}</pre>
                 <IconButton
                     icon="crosshairs"
                     aria-label={props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:nodeInfo.highlightNode')}

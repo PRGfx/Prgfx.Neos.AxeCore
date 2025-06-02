@@ -1,17 +1,21 @@
 import React, { useCallback } from 'react';
-import { Provider, useDispatch, useSelector, useStore } from 'react-redux';
+import { Provider, ProviderProps, useDispatch, useSelector, useStore } from 'react-redux';
 import PopoutWindow from 'react-popout';
 import { selectors } from '@neos-project/neos-ui-redux-store';
 import { actions as axeCoreViewActions, selectors as axeCoreViewSelectors } from './state';
 import { ViewContainer } from './components/view';
-import { neos } from '@neos-project/neos-ui-decorators';
 import { featureEnabled } from './util';
-import styles from './components/style.css';
+import styles from './components/style.module.css';
+import { useNeos } from './util/useNeos';
 
 const popoutOptions = {
     menubar: 'no',
     location: 'no',
 };
+
+// workaround to ignore "Provider cannot be used as a JSX component" error
+const ReduxProvider = ({ store, children }: ProviderProps) =>
+    React.createElement(Provider as any, { store }, children);
 
 const Popout = (props) => {
     const store = useStore();
@@ -27,6 +31,8 @@ const Popout = (props) => {
     const title = props.i18nRegistry.translate('Prgfx.Neos.AxeCore:AxeCoreView:popout.title', 'axe-core Results', [ document.title ]);
     return (
         <PopoutWindow
+            url="about:blank"
+            containerId="axe-core-popout"
             title={title}
             onError={popin}
             onClosing={popin}
@@ -36,8 +42,8 @@ const Popout = (props) => {
             }}
         >
             <div className={styles.popout}>
-                <Provider store={store}>
-                    {[ ...document.querySelectorAll('link[rel=stylesheet]') ].map((l, i) => (
+                <ReduxProvider store={store}>
+                    {[ ...document.querySelectorAll<HTMLLinkElement>('link[rel=stylesheet]') ].map((l, i) => (
                         <link rel="stylesheet" href={l.href} key={i} />
                     ))}
                     <ViewContainer
@@ -47,26 +53,21 @@ const Popout = (props) => {
                         isPopout
                         getNodeData={getNodeData}
                     />
-                </Provider>
+                </ReduxProvider>
             </div>
         </PopoutWindow>
     );
 };
 
-@neos(globalRegistry => ({
-    i18nRegistry: globalRegistry.get('i18n'),
-    frontendConfiguration: globalRegistry.get('frontendConfiguration'),
-}))
-export class AxeCorePopout extends React.Component {
-    render() {
-        const isFeatureEnabled = featureEnabled(this.props.frontendConfiguration);
-        return (
-            <Popout
-                i18nRegistry={this.props.i18nRegistry}
-                featureEnabled={isFeatureEnabled}
-            />
-        );
-    }
-}
+export const AxeCorePopout = () => {
+    const { globalRegistry } = useNeos();
+
+    return (
+        <Popout
+            i18nRegistry={globalRegistry.get('i18n')}
+            featureEnabled={featureEnabled(globalRegistry.get('frontendConfiguration'))}
+        />
+    );
+};
 
 export const PopoutFeatureName = 'popout';

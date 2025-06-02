@@ -5,3 +5,6 @@ declare module '@neos-project/neos-ts-interfaces' {
         translate: (id?: string, fallback?: string, params?: any, packageKey?: string, sourceName?: string) => string;
     }
 }
+declare module '@neos-project/neos-ui-decorators' {
+    export const NeosContext: React.Context<unknown>;
+}

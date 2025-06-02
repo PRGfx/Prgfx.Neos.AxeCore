@@ -3,7 +3,7 @@ import {
     ToggablePanel,
     Icon,
 } from '@neos-project/react-ui-components';
-import style from './style.css';
+import style from './style.module.css';
 
 export interface IResultSectionProps {
     title: string;
