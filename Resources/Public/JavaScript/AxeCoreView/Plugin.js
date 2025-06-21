@@ -1465,7 +1465,10 @@
     menubar: "no",
     location: "no"
   };
-  var ReduxProvider = ({ store, children }) => import_react8.default.createElement(import_react_redux.Provider, { store }, children);
+  var ReduxProvider = ({ store, children }) => (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    import_react8.default.createElement(import_react_redux.Provider, { store }, children)
+  );
   var Popout = (props) => {
     const store = (0, import_react_redux.useStore)();
     const dispatch = (0, import_react_redux.useDispatch)();

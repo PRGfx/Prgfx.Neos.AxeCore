@@ -15,6 +15,7 @@ const popoutOptions = {
 
 // workaround to ignore "Provider cannot be used as a JSX component" error
 const ReduxProvider = ({ store, children }: ProviderProps) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     React.createElement(Provider as any, { store }, children);
 
 const Popout = (props) => {
