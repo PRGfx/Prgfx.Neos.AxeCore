@@ -14,10 +14,10 @@ prototype(Prgfx.Neos.AxeCore:AnalyzerScripts) < prototype(Neos.Fusion:Join) {
                 path = ${Configuration.setting('Prgfx.Neos.AxeCore.script')}
             }
         }
-        @if.inAnalyzerview = ${renderingMode.name == 'axeAnalyzerView'}
+        @if.inAnalyzerview = ${renderingMode ? renderingMode.name == 'axeAnalyzerView' : (documentNode.context.inBackend && documentNode.context.currentRenderingMode.name == 'axeAnalyzerView')}
     }
     elementHighlighter = Prgfx.Neos.AxeCore:ElementHighlighter {
-        @if.inBackend = ${renderingMode.isPreview || renderingMode.isEdit}
+        @if.inBackend = ${renderingMode ? (renderingMode.isPreview || renderingMode.isEdit) : documentNode.context.inBackend}
     }
 }
 
