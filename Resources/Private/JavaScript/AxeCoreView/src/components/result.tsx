@@ -3,7 +3,7 @@ import { Icon } from '@neos-project/react-ui-components';
 import cls from 'classnames';
 import { Result as AxeResult } from 'axe-core';
 import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
-import style from './style.css';
+import style from './style.module.css';
 import { Occurrence } from './occurrence';
 import { OccurrencePaginator } from './OccurrencePaginator';
 import { NodeData } from '../types/custom';

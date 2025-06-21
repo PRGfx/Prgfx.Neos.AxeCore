@@ -19,8 +19,9 @@ Neos:
     userInterface:
       editPreviewModes:
         axeAnalyzerView:
-          isEditingMode: false
+          isEditingMode: true
           isPreviewMode: false
+          hidden: true
           fusionRenderingPath: ''
           title: 'axe-core Analyzer'
           position: end

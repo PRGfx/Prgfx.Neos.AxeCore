@@ -12,7 +12,7 @@ const impactValues = {
 export const sortByImpact = <T extends {impact?: keyof typeof impactValues | null}>(items: T[]): T[] =>
     [ ...items ].sort((a, b) => (impactValues[b.impact] ?? -1) - (impactValues[a.impact] ?? -1));
 
-export const featureEnabled = (frontendConfiguration: Record<string, any> | SynchronousRegistry<any>) => (feature: string): boolean => {
+export const featureEnabled = (frontendConfiguration: Record<string, unknown> | SynchronousRegistry<unknown>) => (feature: string): boolean => {
     const configKey = 'Prgfx.Neos.AxeCore:features';
     if (typeof frontendConfiguration['get'] === 'function') {
         return frontendConfiguration.get(configKey)?.[feature];

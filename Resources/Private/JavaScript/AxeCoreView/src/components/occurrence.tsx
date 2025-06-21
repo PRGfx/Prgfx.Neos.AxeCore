@@ -1,6 +1,6 @@
 import React from 'react';
 import { NodeResult } from 'axe-core';
-import style from './style.css';
+import style from './style.module.css';
 import { NodeInfo } from './node-info';
 import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
 import { NodeData } from '../types/custom';

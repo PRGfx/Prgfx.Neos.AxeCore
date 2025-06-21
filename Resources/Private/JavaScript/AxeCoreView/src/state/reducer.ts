@@ -1,8 +1,7 @@
-import { $all, $get, $set } from 'plow-js';
 import { AxeCoreViewState } from './state';
 import { actionTypes, AxeCoreViewAction } from './actions';
 
-interface BaseState {
+export interface BaseState {
     plugins?: {
         axeCoreView?: AxeCoreViewState,
     }
@@ -11,19 +10,61 @@ interface BaseState {
 export const reducer = (state: BaseState, action: AxeCoreViewAction): BaseState => {
     switch (action.type) {
         case actionTypes.ANALYZE:
-            return $all<BaseState>(
-                s => $set([ 'plugins', 'axeCoreView', 'analysisRequested' ], action.contextPath, s),
-                s => $set([ 'plugins', 'axeCoreView', 'reports', action.contextPath ], null, s),
-            )(state);
+            return {
+                ...state,
+                plugins: {
+                    ...state.plugins,
+                    axeCoreView: {
+                        ...state.plugins.axeCoreView ?? {
+                            isPoppedOut: false,
+                        },
+                        analysisRequested: action.contextPath,
+                        reports: {
+                            ...state.plugins.axeCoreView?.reports,
+                            [action.contextPath]: null,
+                        },
+                    },
+                },
+            };
         case actionTypes.SET_REPORT:
-            return $all<BaseState>(
-                s => $set([ 'plugins', 'axeCoreView', 'analysisRequested' ], false, s),
-                s => $set([ 'plugins', 'axeCoreView', 'reports', action.contextPath ], action.report, s),
-            )(state);
+            return {
+                ...state,
+                plugins: {
+                    ...state.plugins,
+                    axeCoreView: {
+                        ...state.plugins.axeCoreView ?? {
+                            isPoppedOut: false,
+                        },
+                        analysisRequested: false,
+                        reports: {
+                            ...state.plugins.axeCoreView?.reports,
+                            [action.contextPath]: action.report,
+                        },
+                    },
+                },
+            };
         case actionTypes.POPOUT:
-            return $set([ 'plugins', 'axeCoreView', 'isPoppedOut' ], true, state);
+            return {
+                ...state,
+                plugins: {
+                    ...state.plugins,
+                    axeCoreView: {
+                        ...state.plugins.axeCoreView,
+                        isPoppedOut: true,
+                    },
+                },
+            };
         case actionTypes.POPIN:
-            return $set([ 'plugins', 'axeCoreView', 'isPoppedOut' ], false, state);
+            return {
+                ...state,
+                plugins: {
+                    ...state.plugins,
+                    axeCoreView: {
+                        ...state.plugins.axeCoreView,
+                        isPoppedOut: false,
+                    },
+                },
+            };
         default:
             return state;
     }

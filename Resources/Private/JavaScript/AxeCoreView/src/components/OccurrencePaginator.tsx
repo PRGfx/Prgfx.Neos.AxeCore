@@ -1,6 +1,6 @@
 import React from 'react';
 import { I18nRegistry } from '@neos-project/neos-ts-interfaces';
-import style from './style.css';
+import style from './style.module.css';
 
 
 interface IOccurrencePaginatorProps {

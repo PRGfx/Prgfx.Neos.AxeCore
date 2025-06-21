@@ -1,9 +1,9 @@
-import { $get } from 'plow-js';
 import { AxeResults } from 'axe-core';
+import { BaseState } from './reducer';
 
-export const isAnalyzing = (state: any): boolean =>
-    !!$get([ 'plugins', 'axeCoreView', 'analysisRequested' ], state);
-export const getReport = (state: any) => (contextPath: string): AxeResults | null =>
-    $get([ 'plugins', 'axeCoreView', 'reports', contextPath ], state);
-export const isPoppedOut = (state: any): boolean =>
-    $get([ 'plugins', 'axeCoreView', 'isPoppedOut' ], state);
+export const isAnalyzing = (state: BaseState): boolean =>
+    !!state.plugins?.axeCoreView?.analysisRequested;
+export const getReport = (state: BaseState) => (contextPath: string): AxeResults | null =>
+    state.plugins?.axeCoreView?.reports?.[contextPath] ?? null;
+export const isPoppedOut = (state: BaseState): boolean =>
+    state.plugins?.axeCoreView?.isPoppedOut === true;

@@ -10,7 +10,7 @@ import { ResultSection } from './result-section';
 import { IResultListProps, ResultList } from './result-list';
 import { PopoutFeatureName } from '../AxeCorePopout';
 import { actions, selectors } from '@neos-project/neos-ui-redux-store';
-import styles from './style.css';
+import styles from './style.module.css';
 import { ExportButton, ExportFeatureName, getFilenameFromTitle } from './export';
 import { NodeData } from '../types/custom';
 
