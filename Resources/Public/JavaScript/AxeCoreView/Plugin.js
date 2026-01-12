@@ -1764,12 +1764,21 @@
     viewsRegistry.set("Prgfx.Neos.AxeCore/Inspector/Views/AxeCoreView", {
       component: AxeCoreView
     });
-    const previewModes = frontendConfiguration.editPreviewModes;
-    Object.entries(previewModes).forEach(([key, value]) => {
-      if (value.hidden) {
-        delete previewModes[key];
-      }
-    });
+    let previewModes = null;
+    const getConfiguration = window["@Neos:HostPluginAPI"]?.["@NeosProjectPackages"]()["NeosUiConfiguration"]?.getConfiguration;
+    if (typeof getConfiguration === "function") {
+      const frontendConfiguration2 = getConfiguration();
+      previewModes = frontendConfiguration2.editPreviewModes;
+    } else if (frontendConfiguration && "editPreviewModes" in frontendConfiguration) {
+      previewModes = frontendConfiguration.editPreviewModes;
+    }
+    if (previewModes) {
+      Object.entries(previewModes).forEach(([key, value]) => {
+        if (value.hidden) {
+          delete previewModes[key];
+        }
+      });
+    }
     const sagasRegistry = globalRegistry.get("sagas");
     sagasRegistry.set("Prgfx.Neos.AxeCore/analyze", { saga: handleAnalyzerRequest });
     const reducersRegistry = globalRegistry.get("reducers");
