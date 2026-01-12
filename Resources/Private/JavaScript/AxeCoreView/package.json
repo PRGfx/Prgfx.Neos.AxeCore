@@ -21,14 +21,14 @@
         "typescript-eslint": "^8.34.1"
     },
     "peerDependencies": {
-        "@neos-project/react-ui-components": "^7.1.1",
+        "@neos-project/react-ui-components": "^9.0.0",
         "classnames": "^2.3.1",
         "react": "^16.14.0",
         "react-redux": "^7.2.4"
     },
     "dependencies": {
         "@neos-project/react-ui-components": "^9.0.0",
-        "axe-core": "^4.10.3",
+        "axe-core": "^4.11.1",
         "classnames": "^2.5.1",
         "lodash.debounce": "^4.0.8",
         "react-popout": "^2.0.1",
