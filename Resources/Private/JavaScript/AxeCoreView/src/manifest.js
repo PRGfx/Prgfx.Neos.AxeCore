@@ -11,12 +11,25 @@ manifest('Prgfx.Neos.AxeCore:AxeCoreView', {}, (globalRegistry, { frontendConfig
         component: AxeCoreView,
     });
 
-    const previewModes = frontendConfiguration.editPreviewModes;
-    Object.entries(previewModes).forEach(([ key, value ]) => {
-        if (value.hidden) {
-            delete previewModes[key];
-        }
-    });
+    // omit "hidden" preview modes
+    let previewModes = null;
+    // Neos 9.1 deprecated the frontendConfiguration and editPreviewModes is no longer available
+    // We don't require a neos version that has the import, so we do try the manual way
+    const getConfiguration = window['@Neos:HostPluginAPI']?.['@NeosProjectPackages']()['NeosUiConfiguration']?.getConfiguration;
+    if (typeof getConfiguration === 'function') {
+        // the intended way would be using the function with a selector callback, but we want the original object to modify it
+        const frontendConfiguration = getConfiguration();
+        previewModes = frontendConfiguration.editPreviewModes;
+    } else if (frontendConfiguration && 'editPreviewModes' in frontendConfiguration) {
+        previewModes = frontendConfiguration.editPreviewModes;
+    }
+    if (previewModes) {
+        Object.entries(previewModes).forEach(([ key, value ]) => {
+            if (value.hidden) {
+                delete previewModes[key];
+            }
+        });
+    }
 
     const sagasRegistry = globalRegistry.get('sagas');
     sagasRegistry.set('Prgfx.Neos.AxeCore/analyze', { saga: handleAnalyzerRequest });
